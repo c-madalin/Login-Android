@@ -18,4 +18,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
     //modificare 2
+    // am modifict dev
 }
