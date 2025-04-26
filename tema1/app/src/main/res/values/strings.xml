@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Tema1</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="do_login">Do Login</string>
+    <string name="go_to_register">Go To Register</string>
+    <string name="register">Register</string>
+    <string name="next">Next</string>
+    <string name="my_profile">my profile</string>
+    <string name="register_step_2">Register Step 2</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="do_register">Do Register</string>
+    <string name="more_profile_info">More profile info</string>
+    <string name="moreprofile_info_2">moreprofile info 2</string>
+    <string name="email_profile">Email</string>
+</resources>
