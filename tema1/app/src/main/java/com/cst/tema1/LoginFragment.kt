@@ -39,7 +39,14 @@ class LoginFragment: Fragment() {
     }
 
     private fun doLogin(email: String?) {
+        val navOptions = androidx.navigation.navOptions {
+            popUpTo(R.id.navigation_auth) {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
         val action = LoginFragmentDirections.actionLoginFragmentToNavigationProfile()
-        findNavController().navigate(action)
+        findNavController().navigate(action.actionId, null, navOptions)
     }
+
 }
