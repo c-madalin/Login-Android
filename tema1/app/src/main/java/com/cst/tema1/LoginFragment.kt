@@ -45,8 +45,15 @@ class LoginFragment: Fragment() {
             }
             launchSingleTop = true
         }
-        val action = LoginFragmentDirections.actionLoginFragmentToNavigationProfile()
-        findNavController().navigate(action.actionId, null, navOptions)
+
+        // Obține emailul din EditText
+        val emailText = view?.findViewById<EditText>(R.id.et_email)?.text.toString()
+
+        // Folosește email din EditText sau parametrul dacă EditText e gol
+        val emailToSend = if (emailText.isNotEmpty()) emailText else email ?: ""
+
+        val action = LoginFragmentDirections.actionLoginFragmentToNavigationProfile(emailToSend)
+        findNavController().navigate(action)
     }
 
 }

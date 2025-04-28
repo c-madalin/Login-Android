@@ -11,14 +11,18 @@
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_registerStep1Fragment"
-            app:destination="@id/registerStep1Fragment" />
-        <action
             android:id="@+id/action_loginFragment_to_navigation_profile"
             app:destination="@id/navigation_profile"
-            app:launchSingleTop="true"
-            app:popUpTo="@navigation/navigation_auth"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/navigation_auth"
+            app:popUpToInclusive="true">
+            <argument
+                android:name="email"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
+        <action
+            android:id="@+id/action_loginFragment_to_registerStep1Fragment"
+            app:destination="@id/registerStep1Fragment" />
     </fragment>
     <fragment
         android:id="@+id/registerStep1Fragment"
