@@ -6,8 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
+import com.cst.tema1.data.UserRepository
+import kotlinx.coroutines.launch
 
 class LoginFragment: Fragment() {
     override fun onCreateView(
@@ -29,7 +34,7 @@ class LoginFragment: Fragment() {
         }
 
         view.findViewById<Button>(R.id.btn_do_login).setOnClickListener {
-            doLogin("")
+            doLogin()
         }
     }
 
@@ -38,22 +43,41 @@ class LoginFragment: Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun doLogin(email: String?) {
-        val navOptions = androidx.navigation.navOptions {
-            popUpTo(R.id.navigation_auth) {
-                inclusive = true
-            }
-            launchSingleTop = true
+    // În LoginFragment
+    private val userRepository by lazy { UserRepository(requireContext()) }
+
+    private fun doLogin() {
+        val email = view?.findViewById<EditText>(R.id.et_email)?.text.toString()
+        val password = view?.findViewById<EditText>(R.id.tiet_password)?.text.toString()
+
+        if (email.isBlank() || password.isBlank()) {
+            Toast.makeText(requireContext(), "Introduceți emailul și parola", Toast.LENGTH_SHORT).show()
+            return
         }
 
-        // Obține emailul din EditText
-        val emailText = view?.findViewById<EditText>(R.id.et_email)?.text.toString()
+        lifecycleScope.launch {
+            try {
+                val user = userRepository.loginUser(email, password)
 
-        // Folosește email din EditText sau parametrul dacă EditText e gol
-        val emailToSend = if (emailText.isNotEmpty()) emailText else email ?: ""
+                if (user != null) {
+                    // Autentificare reușită
+                    val navOptions = navOptions {
+                        popUpTo(R.id.navigation_auth) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
 
-        val action = LoginFragmentDirections.actionLoginFragmentToNavigationProfile(emailToSend)
-        findNavController().navigate(action)
+                    val action = LoginFragmentDirections.actionLoginFragmentToNavigationProfile(email)
+                    findNavController().navigate(action)
+                } else {
+                    // Autentificare eșuată
+                    Toast.makeText(requireContext(), "Email sau parolă incorecte", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Eroare: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 }
