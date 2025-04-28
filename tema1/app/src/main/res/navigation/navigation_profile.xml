@@ -15,5 +15,10 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_profileFragment_to_navigation_auth"
+            app:destination="@id/navigation_auth"
+            app:popUpTo="@id/navigation_profile"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

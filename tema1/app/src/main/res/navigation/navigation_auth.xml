@@ -29,9 +29,19 @@
         android:name="com.cst.tema1.RegisterStep1Fragment"
         android:label="RegisterStep1Fragment"
         tools:layout="@layout/fragment_register_step_1">
+
         <action
             android:id="@+id/action_registerStep1Fragment_to_registerStep2Fragment"
-            app:destination="@id/registerStep2Fragment" />
+            app:destination="@id/registerStep2Fragment">
+            <argument
+                android:name="email"
+                app:argType="string"
+                app:nullable="true" />
+            <argument
+                android:name="password"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
         <argument
             android:name="email"
             app:argType="string"
@@ -46,9 +56,24 @@
         android:name="com.cst.tema1.RegisterStep2Fragment"
         android:label="RegisterStep2Fragment"
         tools:layout="@layout/fragment_register_step_2">
+        <argument
+            android:name="email"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="password"
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_registerStep2Fragment_to_navigation_profile"
-            app:destination="@id/navigation_profile" />
+            app:destination="@id/navigation_profile"
+            app:popUpTo="@id/navigation_auth"
+            app:popUpToInclusive="true">
+            <argument
+                android:name="email"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
     </fragment>
 
     <include app:graph="@navigation/navigation_profile" />

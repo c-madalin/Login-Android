@@ -7,9 +7,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
 
 class RegisterStep2Fragment : Fragment() {
+
+    // Primim argumentele din RegisterStep1Fragment
+    private val args: RegisterStep2FragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,7 +37,11 @@ class RegisterStep2Fragment : Fragment() {
             }
             launchSingleTop = true
         }
-        val action = RegisterStep2FragmentDirections.actionRegisterStep2FragmentToNavigationProfile()
-        findNavController().navigate(action.actionId, null, navOptions)
+
+        // Extragem emailul din argumente pentru a-l transmite mai departe
+        val email = args.email
+
+        val action = RegisterStep2FragmentDirections.actionRegisterStep2FragmentToNavigationProfile(email)
+        findNavController().navigate(action)
     }
 }

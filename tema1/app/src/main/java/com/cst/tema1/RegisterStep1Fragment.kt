@@ -38,9 +38,17 @@ class RegisterStep1Fragment: Fragment() {
         emailEditText?.setText(email)
         passwordEditText?.setText(password)
 
+        // În RegisterStep1Fragment, modifică setOnClickListener pentru butonul Next
         view.findViewById<Button>(R.id.btn_next).setOnClickListener {
-            val action = RegisterStep1FragmentDirections.actionRegisterStep1FragmentToRegisterStep2Fragment()
+            val email = emailEditText?.text.toString()
+            val password = passwordEditText?.text.toString()
+
+            val action = RegisterStep1FragmentDirections.actionRegisterStep1FragmentToRegisterStep2Fragment(
+                email = email,
+                password = password
+            )
             findNavController().navigate(action)
         }
+
     }
 }
